@@ -1,0 +1,10 @@
+package-as: BagView
+enable-nolib-creation: no
+
+required-dependencies:
+  - Scorpio
+
+manual-changelog: changelog.txt
+
+ignore:
+  - img

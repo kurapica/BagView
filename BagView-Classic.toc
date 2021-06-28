@@ -1,0 +1,21 @@
+## Interface: 11307
+## Title: BagView
+## Author: kurapica125@outlook.com
+## Version: r001
+## Notes: A multi container view system
+## Dependencies: Scorpio.Widget, Scorpio.Action
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: BagView_DB
+## SavedVariablesPerCharacter: BagView_CharDB
+
+# Localization
+localization\enUS.lua
+localization\zhCN.lua
+
+# Core
+BagView.lua
+Template.lua
+
+# Skin
+DefaultSkin.lua
