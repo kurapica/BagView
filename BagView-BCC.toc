@@ -1,7 +1,7 @@
 ## Interface: 20501
 ## Title: BagView
 ## Author: kurapica125@outlook.com
-## Version: r001
+## Version: r002
 ## Notes: A multi container view system
 ## Dependencies: Scorpio.Widget, Scorpio.Action
 ## DefaultState: Enabled

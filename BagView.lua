@@ -195,8 +195,7 @@ function OnEnable()
         local i = 1
 
         while i <= _ContainerHeader.Count do
-            Delay(10)
-
+            Delay(1)
             NoCombat()
 
             while i <= _ContainerHeader.Count and _ContainerHeader.Elements[i].ContainerView.TaskMark do
