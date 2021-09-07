@@ -15,7 +15,7 @@ import "Scorpio.Secure"
 import "System.Reactive"
 import "System.Text"
 
-LE_ITEM_QUALITY_COMMON          = _G.LE_ITEM_QUALITY_COMMON or Scorpio.IsRetail and _G.Enum.ItemQuality.Common or 1
+LE_ITEM_QUALITY_COMMON          = _G.LE_ITEM_QUALITY_COMMON or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Common or 1
 
 DEFAULT_CONTAINER_CONFIG        = {
     Name                        = _G.BACKPACK_TOOLTIP,
@@ -566,55 +566,55 @@ do
             ID                  = 200001,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY0_DESC"],
             Desc                = _Locale[200001],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_POOR or Scorpio.IsRetail and _G.Enum.ItemQuality.Poor) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_POOR or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Poor) .. ")",
         },
         {
             ID                  = 200002,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY1_DESC"],
             Desc                = _Locale[200002],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_COMMON or Scorpio.IsRetail and _G.Enum.ItemQuality.Common) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_COMMON or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Common) .. ")",
         },
         {
             ID                  = 200003,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY2_DESC"],
             Desc                = _Locale[200003],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_UNCOMMON or Scorpio.IsRetail and _G.Enum.ItemQuality.Uncommon) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_UNCOMMON or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Uncommon) .. ")",
         },
         {
             ID                  = 200004,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY3_DESC"],
             Desc                = _Locale[200004],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_RARE or Scorpio.IsRetail and _G.Enum.ItemQuality.Rare) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_RARE or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Rare) .. ")",
         },
         {
             ID                  = 200005,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY4_DESC"],
             Desc                = _Locale[200005],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_EPIC or Scorpio.IsRetail and _G.Enum.ItemQuality.Epic) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_EPIC or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Epic) .. ")",
         },
         {
             ID                  = 200006,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY5_DESC"],
             Desc                = _Locale[200006],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_LEGENDARY or Scorpio.IsRetail and _G.Enum.ItemQuality.Legendary) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_LEGENDARY or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Legendary) .. ")",
         },
         {
             ID                  = 200007,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY6_DESC"],
             Desc                = _Locale[200007],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_ARTIFACT or Scorpio.IsRetail and _G.Enum.ItemQuality.Artifact) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_ARTIFACT or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Artifact) .. ")",
         },
         {
             ID                  = 200008,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY7_DESC"],
             Desc                = _Locale[200008],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_HEIRLOOM or Scorpio.IsRetail and _G.Enum.ItemQuality.Heirloom) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_HEIRLOOM or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.Heirloom) .. ")",
         },
         {
             ID                  = 200009,
             Name                = _G["RARITY"] .. "-" .. _G["ITEM_QUALITY8_DESC"],
             Desc                = _Locale[200009],
-            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_WOW_TOKEN or Scorpio.IsRetail and _G.Enum.ItemQuality.WoWToken) .. ")",
+            Condition           = "(quality == " .. (_G.LE_ITEM_QUALITY_WOW_TOKEN or _G.Enum and _G.Enum.ItemQuality and _G.Enum.ItemQuality.WoWToken) .. ")",
         },
     }
 

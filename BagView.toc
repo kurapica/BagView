@@ -1,13 +1,17 @@
 ## Interface: 90100
+## Interface-Retail: 90100
+## Interface-Classic: 11307
+## Interface-BCC: 20502
 ## Title: BagView
 ## Author: kurapica125@outlook.com
-## Version: r004
+## Version: @project-version@
 ## Notes: A multi container view system
 ## Dependencies: Scorpio
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: BagView_DB
 ## SavedVariablesPerCharacter: BagView_CharDB
+## X-Curse-Project-ID: 497688
 
 # Localization
 localization\enUS.lua

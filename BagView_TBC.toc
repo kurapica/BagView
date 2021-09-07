@@ -1,7 +1,7 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: BagView
 ## Author: kurapica125@outlook.com
-## Version: r004
+## Version: @project-version@
 ## Notes: A multi container view system
 ## Dependencies: Scorpio
 ## DefaultState: Enabled
