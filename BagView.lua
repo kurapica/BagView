@@ -823,6 +823,26 @@ function viewer:OnHyperlinkClick(path)
                 _Locale         = _Locale,
             })
         end
+    elseif path:match("^upview:") then
+        path                    = tonumber(path:match("%d+"))
+        if path and self.Configs[path] and path > 1 then
+            self.Configs[path], self.Configs[path - 1] = self.Configs[path - 1], self.Configs[path]
+
+            viewer:SetText(TEMPLATE_VIEW {
+                configs         = self.Configs,
+                _Locale         = _Locale,
+            })
+        end
+    elseif path:match("^downview:") then
+        path                    = tonumber(path:match("%d+"))
+        if path and self.Configs[path] and path < #self.Configs then
+            self.Configs[path], self.Configs[path + 1] = self.Configs[path + 1], self.Configs[path]
+
+            viewer:SetText(TEMPLATE_VIEW {
+                configs         = self.Configs,
+                _Locale         = _Locale,
+            })
+        end
     elseif path == "acon" then
         local name              = Input(_Locale["Please input the new name"])
 
@@ -866,6 +886,26 @@ function viewer:OnHyperlinkClick(path)
             if not name then return end
 
             self.Config.ContainerRules[path].Name = name
+
+            viewer:SetText(TEMPLATE_CONFIG {
+                config          = self.Config,
+                _Locale         = _Locale,
+            })
+        end
+    elseif path:match("^upcon:") then
+        path                    = tonumber(path:match("%d+"))
+        if path and self.Config.ContainerRules[path] and path > 1 then
+            self.Config.ContainerRules[path], self.Config.ContainerRules[path - 1] = self.Config.ContainerRules[path - 1], self.Config.ContainerRules[path]
+
+            viewer:SetText(TEMPLATE_CONFIG {
+                config          = self.Config,
+                _Locale         = _Locale,
+            })
+        end
+    elseif path:match("^downcon:") then
+        path                    = tonumber(path:match("%d+"))
+        if path and self.Config.ContainerRules[path] and path < #self.Config.ContainerRules then
+            self.Config.ContainerRules[path], self.Config.ContainerRules[path + 1] = self.Config.ContainerRules[path + 1], self.Config.ContainerRules[path]
 
             viewer:SetText(TEMPLATE_CONFIG {
                 config          = self.Config,
@@ -1035,6 +1075,12 @@ TEMPLATE_VIEW                   = TemplateString[[
                     <a href="view:@i">@\config.Name</a>
                     [<a href="rview:@i"><red>@\_Locale["Rename"]</red></a>]
                     [<a href="dview:@i"><red>@\_Locale["Delete"]</red></a>]
+                    @if i > 1 then
+                    [<a href="upview:@i"><cyan>@\_Locale["Up"]</cyan></a>]
+                    @end
+                    @if i < #configs then
+                    [<a href="downview:@i"><cyan>@\_Locale["Down"]</cyan></a>]
+                    @end
                 </p>
             <br/>
             @end
@@ -1055,6 +1101,12 @@ TEMPLATE_CONFIG                 = TemplateString[[
                     <a href="con:@i">@\(con.Name or (_Locale["Container"] .. " " .. i))</a>
                     [<a href="rcon:@i"><red>@\_Locale["Rename"]</red></a>]
                     [<a href="dcon:@i"><red>@\_Locale["Delete"]</red></a>]
+                    @if i > 1 then
+                    [<a href="upcon:@i"><cyan>@\_Locale["Up"]</cyan></a>]
+                    @end
+                    @if i < #config.ContainerRules then
+                    [<a href="downcon:@i"><cyan>@\_Locale["Down"]</cyan></a>]
+                    @end
                 </p>
             <br/>
             @end
