@@ -9,6 +9,7 @@
 ## Notes: A multi container view system
 ## Dependencies: Scorpio
 ## DefaultState: Enabled
+## OptionalDeps: Masque
 ## LoadOnDemand: 0
 ## SavedVariables: BagView_DB
 ## SavedVariablesPerCharacter: BagView_CharDB
@@ -24,3 +25,4 @@ Template.lua
 
 # Skin
 DefaultSkin.lua
+MasqueSkin.lua

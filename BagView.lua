@@ -304,7 +304,7 @@ function showMenu(header)
         set                     = function(val) _SVDB.Char.AutoRepairCheckRep = val or 1 end,
     }
 
-    ShowDropDownMenu            {
+    local menu                  = {
         {
             text                = _Locale["Open View Rule Manager"],
             click               = function() ShowRuleForHeader(header) end,
@@ -333,6 +333,10 @@ function showMenu(header)
             },
         },
     }
+
+    FireSystemEvent("BAGVIEW_OPEN_MENU", menu)
+
+    ShowDropDownMenu(menu)
 end
 
 -----------------------------------------------------------
