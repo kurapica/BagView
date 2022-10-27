@@ -130,6 +130,7 @@ function OnEnable()
     end
 
     _ToggleButton               = CreateFrame("CheckButton", "BagViewContainerToggle", UIParent, "SecureActionButtonTemplate")
+    _ToggleButton:RegisterForClicks("AnyUp", "AnyDown")
     _ToggleButton:Hide()
 
     SecureHandlerSetFrameRef(_ToggleButton, "ContainerHeader", Scorpio.UI.GetRawUI(_ContainerHeader))
@@ -1372,19 +1373,6 @@ end
 -------------------------------
 __SecureHook__()
 function ContainerFrameItemButton_OnClick(self, button)
-    if _MERCHANT_SHOW and _SVDB.Char.AutoSell and button == "RightButton" and IsModifiedClick("Alt") then
-        local itemId            = GetContainerItemID(self:GetParent():GetID(), self:GetID())
-
-        if itemId then
-            _ToolDontSell[itemId] = nil
-            _ToolNeedSell[itemId] = true
-            DoAutoSell()
-        end
-    end
-end
-
-__SecureHook__()
-function ContainerFrameItemButton_OnModifiedClick(self, button)
     if _MERCHANT_SHOW and _SVDB.Char.AutoSell and button == "RightButton" and IsModifiedClick("Alt") then
         local itemId            = GetContainerItemID(self:GetParent():GetID(), self:GetID())
 
