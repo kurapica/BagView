@@ -607,7 +607,7 @@ class "ViewButton" (function(_ENV)
         self:SetFrameRef("ContainerView", self.ContainerView)
         self:SetFrameRef("ViewManager", self:GetParent())
 
-        self:RegisterForClicks("AnyDown")
+        self:RegisterForClicks("AnyDown", "AnyUp")
         self:SetAttribute("type", "viewchange")
         self:SetAttribute("_viewchange", [[self:GetFrameRef("ViewManager"):RunFor(self, "ViewManager:RunFor(self, ActiveView)")]])
 
