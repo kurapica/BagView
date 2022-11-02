@@ -609,7 +609,13 @@ class "ViewButton" (function(_ENV)
 
         self:RegisterForClicks("AnyDown", "AnyUp")
         self:SetAttribute("type", "viewchange")
-        self:SetAttribute("_viewchange", [[self:GetFrameRef("ViewManager"):RunFor(self, "ViewManager:RunFor(self, ActiveView)")]])
+
+        if Scorpio.IsRetail then
+            self:WrapScript(self, "OnClick", [[return not down and self:GetFrameRef("ViewManager"):RunFor(self, "ViewManager:RunFor(self, ActiveView)")]])
+            self:SetAttribute("_viewchange", [[]])
+        else
+            self:SetAttribute("_viewchange", [[self:GetFrameRef("ViewManager"):RunFor(self, "ViewManager:RunFor(self, ActiveView)")]])
+        end
 
         self.OnAttributeChanged = self.OnAttributeChanged + OnAttributeChanged
     end
@@ -786,6 +792,7 @@ class "ContainerHeader" (function(_ENV)
 
         -- Sort btn
         local sortBtn           = SecureButton(name .. "SortButton", self)
+        sortBtn:RegisterForClicks("AnyUp", "AnyDown")
         sortBtn:SetSize(28, 26)
         sortBtn:SetPoint("BOTTOMRIGHT", -2, 4)
 
@@ -933,7 +940,13 @@ class "ContainerHeader" (function(_ENV)
                         if self.IsBank then
                             GenerateBankSlots(bagPanel)
                         else
-                            for i = 0, 4 do bagPanel.Elements[i+1]:SetAction("bag", i) end
+                            for i = 0, 4 do
+                                bagPanel.Elements[i+1]:SetAction("bag", i)
+                            end
+
+                            if Scorpio.IsRetail then
+                                Style[bagPanel.Elements[1]].IconTexture.atlas = { atlas = "bag-main", useAtlasSize = true }
+                            end
                         end
                     end
                     btnToggleContainer:GetNormalTexture():SetPoint("CENTER", 0, 4)
