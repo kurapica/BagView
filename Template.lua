@@ -12,6 +12,12 @@ Scorpio           "BagView.Template"                 "1.0.0"
 _GameTooltip                    = CreateFrame("GameTooltip", "BagView_Container_Tooltip", UIParent, "GameTooltipTemplate")
 IsReagentBankUnlocked           = _G.IsReagentBankUnlocked or Toolset.fakefunc
 
+if _G.C_Container then
+    for k, v in pairs(_G.C_Container) do
+        _M[k]                   = v
+    end
+end
+
 __Sealed__() __InstantApplyStyle__()
 class "BagButton" { SecureActionButton }
 
@@ -264,8 +270,9 @@ class "ContainerView" (function(_ENV)
         codes                   = ([[
             local containerList, itemList, filterList, matchText = ...
             local yield                     = coroutine.yield
-            local GetContainerItemInfo      = GetContainerItemInfo
-            local GetContainerItemQuestInfo = GetContainerItemQuestInfo or PLoop.System.Toolset.fakefunc
+            local GetContainerItemInfo      = _G.GetContainerItemInfo or _G.C_Container and _G.C_Container.GetContainerItemInfo
+            local GetContainerItemQuestInfo = _G.GetContainerItemQuestInfo or _G.C_Container and _G.C_Container.GetContainerItemQuestInfo or PLoop.System.Toolset.fakefunc
+            local GetContainerNumSlots      = _G.GetContainerNumSlots or _G.C_Container and _G.C_Container.GetContainerNumSlots or PLoop.System.Toolset.fakefunc
             local GetItemInfo               = GetItemInfo
             local GetItemSpell              = GetItemSpell
             local IsNewItem                 = C_NewItems and C_NewItems.IsNewItem or PLoop.System.Toolset.fakefunc
