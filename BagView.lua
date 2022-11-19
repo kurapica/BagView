@@ -24,6 +24,14 @@ DEFAULT_CONTAINER_CONFIG        = {
     },
 }
 
+if _G.C_Container then
+    for k, v in pairs(_G.C_Container) do
+        _M[k]                   = v
+    end
+
+    GetContainerItemInfo        = Scorpio("Scorpio.Secure.BagSlotHandler").GetContainerItemInfo
+end
+
 export { tinsert = table.insert, tremove = table.remove }
 
 -------------------------------------------
