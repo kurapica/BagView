@@ -617,7 +617,7 @@ class "ViewButton" (function(_ENV)
         self:RegisterForClicks("AnyDown", "AnyUp")
         self:SetAttribute("type", "viewchange")
 
-        if Scorpio.IsRetail then
+        if Scorpio.IsRetail or Scorpio.IsWLK then
             self:WrapScript(self, "OnClick", [[return not down and self:GetFrameRef("ViewManager"):RunFor(self, "ViewManager:RunFor(self, ActiveView)")]])
             self:SetAttribute("_viewchange", [[]])
         else

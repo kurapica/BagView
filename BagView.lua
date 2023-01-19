@@ -138,7 +138,11 @@ function OnEnable()
     end
 
     _ToggleButton               = CreateFrame("CheckButton", "BagViewContainerToggle", UIParent, "SecureActionButtonTemplate")
-    _ToggleButton:RegisterForClicks("AnyUp", "AnyDown")
+    if Scorpio.IsRetail then
+        _ToggleButton:RegisterForClicks("AnyUp", "AnyDown")
+    else
+        _ToggleButton:RegisterForClicks("AnyUp")
+    end
     _ToggleButton:Hide()
 
     SecureHandlerSetFrameRef(_ToggleButton, "ContainerHeader", Scorpio.UI.GetRawUI(_ContainerHeader))
