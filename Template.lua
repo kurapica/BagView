@@ -273,9 +273,10 @@ class "ContainerView" (function(_ENV)
             local GetContainerItemInfo      = _G.GetContainerItemInfo or _G.C_Container and _G.C_Container.GetContainerItemInfo
             local GetContainerItemQuestInfo = _G.GetContainerItemQuestInfo or _G.C_Container and _G.C_Container.GetContainerItemQuestInfo or PLoop.System.Toolset.fakefunc
             local GetContainerNumSlots      = _G.GetContainerNumSlots or _G.C_Container and _G.C_Container.GetContainerNumSlots or PLoop.System.Toolset.fakefunc
+            local GetContainerItemEquipmentSetInfo = _G.GetContainerItemEquipmentSetInfo or _G.C_Container and _G.C_Container.GetContainerItemEquipmentSetInfo or PLoop.System.Toolset.fakefunc
             local GetItemInfo               = GetItemInfo
             local GetItemSpell              = GetItemSpell
-            local IsNewItem                 = C_NewItems and C_NewItems.IsNewItem or PLoop.System.Toolset.fakefunc
+            local IsNewItem                 = _G.C_NewItems and _G.C_NewItems.IsNewItem or PLoop.System.Toolset.fakefunc
             local BANK_CONTAINER            = BANK_CONTAINER
             local REAGENTBANK_CONTAINER     = REAGENTBANK_CONTAINER or 99999
             local GameTooltip               = BagView_Container_Tooltip
@@ -284,11 +285,20 @@ class "ContainerView" (function(_ENV)
             local pcall                     = pcall
             local SetInventoryItem          = GameTooltip.SetInventoryItem
             local SetBagItem                = GameTooltip.SetBagItem
+            local type                      = type
 
             return function()
                 for _, bag in ipairs(containerList) do
                     for slot = 1, GetContainerNumSlots(bag) do
-                        local _, count, _, quality, readable, lootable, link, _, hasNoValue, itemID = GetContainerItemInfo(bag, slot)
+                        local icon, _, _, quality, readable, lootable, _, _, hasNoValue, itemID = GetContainerItemInfo(bag, slot)
+                        if icon and type(icon) == "table" then
+                            quality = icon.quality
+                            readable = icon.isReadable
+                            lootable = icon.hasLoot
+                            hasNoValue = icon.hasNoValue
+                            itemID = icon.itemID
+                        end
+
                         local isQuest, questId, isActive = GetContainerItemQuestInfo(bag, slot)
                         local name, iLevel, reqLevel, cls, subclass, maxStack, equipSlot, vendorPrice
                         local itemSpell, isNewItem
@@ -335,6 +345,9 @@ class "ContainerView" (function(_ENV)
                 end
             end
         ]]):format(tconcat(defines, "\n"), #scanConds>0 and tconcat(scanConds, " or ") or "false", tconcat(scanCodes, "\n"), codes)
+
+        _G.TemplateCodes = _G.TemplateCodes or {}
+        tinsert(_G.TemplateCodes, codes)
 
         return loadstring(codes)(containerList, itemList or {}, filterList, matchText), evts
     end
