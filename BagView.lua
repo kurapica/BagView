@@ -268,8 +268,9 @@ function CloseAllBags()
     end
 end
 
-__SystemEvent__()
+__SystemEvent__() __Async__()
 function BANKFRAME_OPENED(self)
+    Next()
     _BankHeader:Show()
 end
 
