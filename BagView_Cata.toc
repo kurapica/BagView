@@ -1,4 +1,4 @@
-## Interface: 11502
+## Interface: 40400
 ## Title: BagView
 ## Author: kurapica125@outlook.com
 ## Version: @project-version@
@@ -9,6 +9,7 @@
 ## LoadOnDemand: 0
 ## SavedVariables: BagView_DB
 ## SavedVariablesPerCharacter: BagView_CharDB
+## X-Curse-Project-ID: 497688
 
 # Localization
 localization\enUS.lua
