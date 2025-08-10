@@ -117,9 +117,11 @@ function OnLoad()
         end
     end
 
-    BankFrame:UnregisterAllEvents()
-    BankSlotsFrame:UnregisterAllEvents()
-    if _G.ReagentBankFrame then ReagentBankFrame:UnregisterAllEvents() end
+    if _G.BankSlotsFrame then
+        BankFrame:UnregisterAllEvents()
+        BankSlotsFrame:UnregisterAllEvents()
+        if _G.ReagentBankFrame then ReagentBankFrame:UnregisterAllEvents() end
+    end
 end
 
 function OnEnable()
@@ -178,18 +180,20 @@ function OnEnable()
     --------------------------
     -- Bank
     --------------------------
-    _BankHeader                 = BankHeader("BagViewBankHeader", UIParent)
-    _BankHeader:ClearAllPoints()
-    _BankHeader:SetPoint("TOPLEFT", 10, -100)
+    if _G.BankSlotsFrame then
+        _BankHeader                 = BankHeader("BagViewBankHeader", UIParent)
+        _BankHeader:ClearAllPoints()
+        _BankHeader:SetPoint("TOPLEFT", 10, -100)
 
-    if _SVDB.Char.Location.BagViewBankHeader then
-        _BankHeader:SetLocation(_SVDB.Char.Location.BagViewBankHeader)
+        if _SVDB.Char.Location.BagViewBankHeader then
+            _BankHeader:SetLocation(_SVDB.Char.Location.BagViewBankHeader)
+        end
+
+        _BankHeader:RegisterStateDriver("autohide", "[combat]hide;nohide")
+        _BankHeader:SetAttribute("_onstate-autohide", [[
+            if newstate == "hide" then self:Hide() end
+        ]])
     end
-
-    _BankHeader:RegisterStateDriver("autohide", "[combat]hide;nohide")
-    _BankHeader:SetAttribute("_onstate-autohide", [[
-        if newstate == "hide" then self:Hide() end
-    ]])
 
     --------------------------
     -- Apply Configs
@@ -227,19 +231,22 @@ function OnEnable()
         Debug("[Container]Auto wakeup finished")
     end)
 
-    _BankHeader:ApplyConfig(_SVDB.BankViewConfigs)
 
-    _BankHeader.Elements[1].ContainerView:Show()
-    _BankHeader.Elements[1]:SetAttribute("viewactive", true)
-    _BankHeader.Elements[1].ContainerView.LoadInstant = true
-    _BankHeader.Elements[1].ContainerView:StartRefresh()
+    if _G.BankSlotsFrame then
+        _BankHeader:ApplyConfig(_SVDB.BankViewConfigs)
 
-    tinsert(UISpecialFrames, "BagViewContainerHeader")
-    tinsert(UISpecialFrames, "BagViewBankHeader")
+        _BankHeader.Elements[1].ContainerView:Show()
+        _BankHeader.Elements[1]:SetAttribute("viewactive", true)
+        _BankHeader.Elements[1].ContainerView.LoadInstant = true
+        _BankHeader.Elements[1].ContainerView:StartRefresh()
 
-    function _BankHeader:OnHide()
-        if not InCombatLockdown() then
-            CloseBankFrame()
+        tinsert(UISpecialFrames, "BagViewContainerHeader")
+        tinsert(UISpecialFrames, "BagViewBankHeader")
+
+        function _BankHeader:OnHide()
+            if not InCombatLockdown() then
+                CloseBankFrame()
+            end
         end
     end
 end
@@ -264,19 +271,23 @@ __SecureHook__()
 function CloseAllBags()
     if not InCombatLockdown() then
         _ContainerHeader:Hide()
-        _BankHeader:Hide()
+        if _G.BankSlotsFrame then
+            _BankHeader:Hide()
+        end
     end
 end
 
-__SystemEvent__() __Async__()
-function BANKFRAME_OPENED(self)
-    Next()
-    _BankHeader:Show()
-end
+if _G.BankSlotsFrame then
+    __SystemEvent__() __Async__()
+    function BANKFRAME_OPENED(self)
+        Next()
+        _BankHeader:Show()
+    end
 
-__SystemEvent__()
-function BANKFRAME_CLOSED(self)
-    _BankHeader:Hide()
+    __SystemEvent__()
+    function BANKFRAME_CLOSED(self)
+        _BankHeader:Hide()
+    end
 end
 
 local _MERCHANT_SHOW = false
